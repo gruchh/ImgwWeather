@@ -1,9 +1,12 @@
 package com.gruchh.weather.Controller;
 
+import com.gruchh.weather.Controller.Dto.StationDTO;
 import com.gruchh.weather.Service.ImgwService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/rivers")
@@ -16,8 +19,7 @@ public class RiverRestController {
     }
 
     @GetMapping("/status")
-    public String getStatus() {
-
-        return "aaa";
+    public List<StationDTO> getStatus() {
+        return imgwService.getStationInfo();
     }
 }

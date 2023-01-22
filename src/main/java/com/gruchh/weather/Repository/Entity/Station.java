@@ -1,10 +1,11 @@
-package com.gruchh.weather.Map;
+package com.gruchh.weather.Repository.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.hibernate.mapping.Map;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.processing.Generated;
 import java.util.HashMap;
@@ -25,6 +26,8 @@ import java.util.HashMap;
         "zjawisko_zarastania_data_pomiaru"
 })
 @Generated("jsonschema2pojo")
+@Getter
+@Setter
 public class Station {
 
     @JsonProperty("id_stacji")
@@ -33,8 +36,8 @@ public class Station {
     private String stacja;
     @JsonProperty("rzeka")
     private String rzeka;
-    @JsonProperty("wojew\u00f3dztwo")
-    private String wojewDztwo;
+    @JsonProperty("województwo")
+    private String wojewodztwo;
     @JsonProperty("stan_wody")
     private String stanWody;
     @JsonProperty("stan_wody_data_pomiaru")
@@ -44,14 +47,15 @@ public class Station {
     @JsonProperty("temperatura_wody_data_pomiaru")
     private Object temperaturaWodyDataPomiaru;
     @JsonProperty("zjawisko_lodowe")
-    private String zjawiskoLodowe;
+    private Object zjawiskoLodowe;
     @JsonProperty("zjawisko_lodowe_data_pomiaru")
-    private String zjawiskoLodoweDataPomiaru;
+    private Object zjawiskoLodoweDataPomiaru;
     @JsonProperty("zjawisko_zarastania")
-    private Object zjawiskoZarastania;
+    private String zjawiskoZarastania;
     @JsonProperty("zjawisko_zarastania_data_pomiaru")
-    private Object zjawiskoZarastaniaDataPomiaru;
+    private String zjawiskoZarastaniaDataPomiaru;
     @JsonIgnore
-    private HashMap additionalProperties = new HashMap<String, Object>();
+    private HashMap<String, Object> additionalProperties = new HashMap<String, Object>();
+
 
 }
