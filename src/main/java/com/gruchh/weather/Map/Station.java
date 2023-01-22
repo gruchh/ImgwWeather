@@ -52,6 +52,6 @@ public class Station {
     @JsonProperty("zjawisko_zarastania_data_pomiaru")
     private Object zjawiskoZarastaniaDataPomiaru;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private HashMap additionalProperties = new HashMap<String, Object>();
 
 }
