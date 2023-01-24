@@ -1,0 +1,1 @@
+--INSERT INTO Station (id, name) VALUES ('1', 'Pszczyna'), ('2', 'Ćwiklice');

@@ -1,6 +1,6 @@
 package com.gruchh.weather.Controller;
 
-import com.gruchh.weather.Controller.Dto.StationDTO;
+import com.gruchh.weather.Repository.Entity.StationPOJO;
 import com.gruchh.weather.Service.ImgwService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,9 @@ public class RiverRestController {
     }
 
     @GetMapping("/status")
-    public List<StationDTO> getStatus() {
+    public List<StationPOJO> getStatus() {
         return imgwService.getStationInfo();
     }
+
+
 }
