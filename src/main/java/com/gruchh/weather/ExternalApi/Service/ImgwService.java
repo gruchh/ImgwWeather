@@ -1,6 +1,6 @@
-package com.gruchh.weather.Service;
+package com.gruchh.weather.ExternalApi.Service;
 
-import com.gruchh.weather.Repository.Entity.StationPOJO;
+import com.gruchh.weather.ExternalApi.Entity.Station;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +14,10 @@ public class ImgwService {
 
     private static final String restUrl = "https://danepubliczne.imgw.pl/api/data/hydro/";
 
-    public List<StationPOJO> getStationInfo() {
+    public List<Station> getStationInfo() {
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<StationPOJO> stationHttpEntity = new HttpEntity<>(new StationPOJO());
-        ResponseEntity<StationPOJO[]> stationExchange = restTemplate.exchange(restUrl, HttpMethod.GET, stationHttpEntity, StationPOJO[].class);
+        HttpEntity<Station> stationHttpEntity = new HttpEntity<>(new Station());
+        ResponseEntity<Station[]> stationExchange = restTemplate.exchange(restUrl, HttpMethod.GET, stationHttpEntity, Station[].class);
         return Arrays.stream(stationExchange.getBody()).toList();
     }
 

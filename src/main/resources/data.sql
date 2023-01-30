@@ -1,1 +1,2 @@
---INSERT INTO Station (id, name) VALUES ('1', 'Pszczyna'), ('2', 'Ćwiklice');
+INSERT INTO METROLOGICAL_STATION (ID, NAME, RIVER, VOIVODESHIP) VALUES (1, 'xxx', 'yyy', 'Malopolska'),
+(2, 'AAA', 'BBB', 'Mazowsze');
