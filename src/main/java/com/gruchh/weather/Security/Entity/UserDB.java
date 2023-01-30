@@ -14,14 +14,15 @@ import java.util.Collection;
 @Getter
 @Setter
 @Entity
-public class User implements UserDetails {
 
-    public User() {
+public class UserDB implements UserDetails {
+
+    public UserDB() {
     }
 
-    public User(String email, String password) {
+    public UserDB(String email, String password) {
         this.email = email;
-        this.password = password;
+        this.pass = password;
     }
 
     @Id
@@ -30,7 +31,7 @@ public class User implements UserDetails {
 
     private String email;
 
-    private String password;
+    private String pass;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -39,6 +40,10 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
+        return null;
+    }
+
+    public String getPass() {
         return null;
     }
 
