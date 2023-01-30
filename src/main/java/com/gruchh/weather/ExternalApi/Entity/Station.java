@@ -1,4 +1,4 @@
-package com.gruchh.weather.Repository.Entity;
+package com.gruchh.weather.ExternalApi.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,6 +25,7 @@ import java.util.HashMap;
         "zjawisko_zarastania",
         "zjawisko_zarastania_data_pomiaru"
 })
+
 @Generated("jsonschema2pojo")
 @Getter
 @Setter
@@ -32,28 +33,28 @@ public class Station {
 
     @JsonProperty("id_stacji")
     private String idStacji;
+
     @JsonProperty("stacja")
     private String stacja;
+
     @JsonProperty("rzeka")
     private String rzeka;
+
     @JsonProperty("województwo")
     private String wojewodztwo;
+
     @JsonProperty("stan_wody")
     private String stanWody;
+
     @JsonProperty("stan_wody_data_pomiaru")
-    private String stanWodyDataPomiaru;
+    private Object stanWodyDataPomiaru;
+
     @JsonProperty("temperatura_wody")
     private Object temperaturaWody;
+
     @JsonProperty("temperatura_wody_data_pomiaru")
     private Object temperaturaWodyDataPomiaru;
-    @JsonProperty("zjawisko_lodowe")
-    private Object zjawiskoLodowe;
-    @JsonProperty("zjawisko_lodowe_data_pomiaru")
-    private Object zjawiskoLodoweDataPomiaru;
-    @JsonProperty("zjawisko_zarastania")
-    private String zjawiskoZarastania;
-    @JsonProperty("zjawisko_zarastania_data_pomiaru")
-    private String zjawiskoZarastaniaDataPomiaru;
+
     @JsonIgnore
     private HashMap<String, Object> additionalProperties = new HashMap<String, Object>();
 
