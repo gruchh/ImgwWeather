@@ -14,16 +14,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Entity
-
 public class UserDB implements UserDetails {
-
-    public UserDB() {
-    }
-
-    public UserDB(String email, String password) {
-        this.email = email;
-        this.pass = password;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +22,15 @@ public class UserDB implements UserDetails {
 
     private String email;
 
-    private String pass;
+    private String password;
+
+    public UserDB() {
+    }
+
+    public UserDB(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -40,16 +39,12 @@ public class UserDB implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
-    }
-
-    public String getPass() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
@@ -70,5 +65,14 @@ public class UserDB implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDB{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", pass='" + password + '\'' +
+                '}';
     }
 }
