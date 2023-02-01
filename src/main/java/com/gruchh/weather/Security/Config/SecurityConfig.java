@@ -1,8 +1,8 @@
 package com.gruchh.weather.Security.Config;
 
 import com.gruchh.weather.Security.Entity.UserDB;
+import com.gruchh.weather.Security.JwtTokenFilter;
 import com.gruchh.weather.Security.Repository.UserDBRepository;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,17 +16,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 public class SecurityConfig {
 
-    public SecurityConfig(UserDBRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     private UserDBRepository userRepository;
+    private JwtTokenFilter jwtTokenFilter;
+
+    public SecurityConfig(UserDBRepository userRepository, JwtTokenFilter jwtTokenFilter) {
+        this.userRepository = userRepository;
+        this.jwtTokenFilter = jwtTokenFilter;
+    }
 
     //REFACTOR
     @EventListener(ApplicationReadyEvent.class)
@@ -62,6 +65,7 @@ public class SecurityConfig {
                         .requestMatchers("/hello").permitAll()
                         .anyRequest().authenticated()
                 );
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

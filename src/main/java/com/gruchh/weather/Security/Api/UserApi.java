@@ -39,6 +39,7 @@ public class UserApi {
             String token = JWT.create()
                     .withSubject(userDB.getUsername())
                     .withIssuer("gruchh")
+                    .withClaim("isAdmin", true)
                     .sign(algorithm);
 
             AuthResponse authResponse = new AuthResponse(userDB.getPassword(), token);
