@@ -7,9 +7,11 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @Getter
 @Setter
@@ -24,17 +26,21 @@ public class UserDB implements UserDetails {
 
     private String password;
 
+    private String role;
+
     public UserDB() {
     }
 
-    public UserDB(String email, String password) {
+    public UserDB(String email, String password, String role) {
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        return Collections.singleton(new SimpleGrantedAuthority(role));
     }
 
     @Override

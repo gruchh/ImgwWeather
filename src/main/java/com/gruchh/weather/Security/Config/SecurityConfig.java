@@ -35,9 +35,12 @@ public class SecurityConfig {
     @EventListener(ApplicationReadyEvent.class)
     public String a() {
 
-        UserDB user = new UserDB("a@a.pl", getBcryptPasswordEncoder().encode("admin123"));
+        UserDB user = new UserDB("a@a.pl", getBcryptPasswordEncoder().encode("admin123"), "user");
         userRepository.save(user);
-        System.out.println("USer " + user);
+        UserDB user2 = new UserDB("b@b.pl", getBcryptPasswordEncoder().encode("bbbxax"), "admin");
+        userRepository.save(user2);
+        System.out.println("User " + user);
+        System.out.println("User2 " + user2);
         return "a";
     }
 
@@ -62,7 +65,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(h2RequestMatcher).permitAll()
                         .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/hello").permitAll()
+                        .requestMatchers("/hello").hasRole("admin")
                         .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

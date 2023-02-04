@@ -8,11 +8,18 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
@@ -26,13 +33,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        parseJwt(authorization);
-
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = getUsernamePasswordAuthenticationToken(authorization);
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
     }
 
-    public String parseJwt(String token) {
-        String role = "ROLE_USER";
 
+    public UsernamePasswordAuthenticationToken getUsernamePasswordAuthenticationToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256("SECRET");
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer("gruchh")
@@ -40,14 +46,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String subtoken = token.substring(7);
         DecodedJWT decodedJWT = verifier.verify(subtoken);
-        Boolean isAdmin = decodedJWT.getClaim("isAdmin").asBoolean();
+        String[] rolesArray = decodedJWT.getClaim("role").asArray(String.class);
+        List<SimpleGrantedAuthority> roles = Stream.of(rolesArray).map(el -> new SimpleGrantedAuthority(el)).collect(Collectors.toList());
 
-        if ( isAdmin ) {
-            role = "ROLE_ADMIN";
-        }
-
-   //     SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role);
-
-        return null;
+        return new UsernamePasswordAuthenticationToken(decodedJWT.getSubject(), null, roles);
     }
 }
