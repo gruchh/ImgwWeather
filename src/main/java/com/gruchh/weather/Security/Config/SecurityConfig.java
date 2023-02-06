@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
@@ -35,9 +36,9 @@ public class SecurityConfig {
     @EventListener(ApplicationReadyEvent.class)
     public String a() {
 
-        UserDB user = new UserDB("a@a.pl", getBcryptPasswordEncoder().encode("admin123"), "user");
+        UserDB user = new UserDB("a@a.pl", getBcryptPasswordEncoder().encode("admin123"), "ROLE_USER");
         userRepository.save(user);
-        UserDB user2 = new UserDB("b@b.pl", getBcryptPasswordEncoder().encode("bbbxax"), "admin");
+        UserDB user2 = new UserDB("b@b.pl", getBcryptPasswordEncoder().encode("bbbxax"), "ROLE_ADMIN");
         userRepository.save(user2);
         System.out.println("User " + user);
         System.out.println("User2 " + user2);
@@ -59,13 +60,13 @@ public class SecurityConfig {
         http.csrf().disable();
         MvcRequestMatcher h2RequestMatcher = new MvcRequestMatcher(introspector, "/**");
         h2RequestMatcher.setServletPath("/h2-console");
-
+//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(h2RequestMatcher).permitAll()
                         .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/hello").permitAll()
+                        .requestMatchers("/hello").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

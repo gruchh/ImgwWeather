@@ -35,8 +35,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = getUsernamePasswordAuthenticationToken(authorization);
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        filterChain.doFilter(request, response);
     }
-
 
     public UsernamePasswordAuthenticationToken getUsernamePasswordAuthenticationToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256("SECRET");
