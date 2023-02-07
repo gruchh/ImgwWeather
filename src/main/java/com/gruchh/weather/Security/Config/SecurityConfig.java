@@ -34,7 +34,7 @@ public class SecurityConfig {
 
     //REFACTOR
     @EventListener(ApplicationReadyEvent.class)
-    public String a() {
+    public void prepareSampleUsers() {
 
         UserDB user = new UserDB("a@a.pl", getBcryptPasswordEncoder().encode("admin123"), "ROLE_USER");
         userRepository.save(user);
@@ -42,7 +42,6 @@ public class SecurityConfig {
         userRepository.save(user2);
         System.out.println("User " + user);
         System.out.println("User2 " + user2);
-        return "a";
     }
 
     @Bean
@@ -58,14 +57,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         http.csrf().disable();
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         MvcRequestMatcher h2RequestMatcher = new MvcRequestMatcher(introspector, "/**");
         h2RequestMatcher.setServletPath("/h2-console");
-//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(h2RequestMatcher).permitAll()
                         .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers("/getSampleWaterMeasures").permitAll()
                         .requestMatchers("/hello").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );
