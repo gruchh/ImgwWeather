@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -13,10 +14,22 @@ import java.time.LocalDate;
 public class WaterMeasure {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDate date;
+    @NotNull
+    @Column(name = "MEASURE_VALUE")
+    private Double measurementValue;
 
+    @NotNull
+    @Column(name = "MEASURE_DATA")
+    private LocalDate measureDate;
 
+    public WaterMeasure() {
+    }
+
+    public WaterMeasure(Double measurementValue, LocalDate measureDate) {
+        this.measurementValue = measurementValue;
+        this.measureDate = measureDate;
+    }
 }
