@@ -66,6 +66,7 @@ public class SecurityConfig {
                         .requestMatchers(h2RequestMatcher).permitAll()
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/getSampleWaterMeasures").permitAll()
+                        .requestMatchers("/rivers/test").permitAll()
                         .requestMatchers("/hello").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 );

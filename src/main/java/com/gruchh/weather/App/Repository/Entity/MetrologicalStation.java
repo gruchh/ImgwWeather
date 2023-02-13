@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 @Entity
 @Getter
 @Setter
@@ -14,13 +16,21 @@ public class MetrologicalStation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @NotNull
+    @Column(name = "STATION_NAME", nullable = false)
+    private String stationName;
 
-    @Column(nullable = false)
-    private String river;
+    @NotNull
+    @Column(name = "RIVER_NAME", nullable = false)
+    private String riverName;
 
-    @Column(nullable = false)
+    @NotNull
+    @Column(name= "STATION_VOIVODESHIP", nullable = false)
     private String voivodeship;
+
+    @NotNull
+    @Column(name = "IMGW_STATION_ID")
+    private Long idImgwSite;
+
 
 }

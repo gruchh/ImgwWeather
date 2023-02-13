@@ -22,8 +22,8 @@ public class WaterMeasureService {
 
     @EventListener(ApplicationReadyEvent.class)
     public void prepareSampleMeasures() {
-        WaterMeasure measure1 = new WaterMeasure(23.12, LocalDate.of(2023, 02, 02));
-        WaterMeasure measure2 = new WaterMeasure(123.1, LocalDate.of(2023, 02, 5));
+        WaterMeasure measure1 = new WaterMeasure(1L, "Pomiarowiec", 2.0, 3.0, 3.2, LocalDate.now(), 21L);
+        WaterMeasure measure2 = new WaterMeasure(2L, "System", 2.330, 987.1, 3.11, LocalDate.now(), 3421L);
         waterMeasureRepository.saveAll(Arrays.asList(measure1, measure2));
     }
 
@@ -31,7 +31,7 @@ public class WaterMeasureService {
         waterMeasureRepository.save(waterMeasure);
     }
 
-    public List<WaterMeasure> getAllWaterMeasures () {
+    public List<WaterMeasure> getAllWaterMeasures() {
         return waterMeasureRepository.findAll();
     }
 

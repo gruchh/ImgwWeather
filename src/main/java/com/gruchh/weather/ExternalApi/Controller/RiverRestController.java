@@ -1,6 +1,7 @@
 package com.gruchh.weather.ExternalApi.Controller;
 
-import com.gruchh.weather.ExternalApi.Entity.Station;
+import com.gruchh.weather.App.Repository.Entity.WaterMeasure;
+import com.gruchh.weather.ExternalApi.Entity.WaterMeasureApi;
 import com.gruchh.weather.ExternalApi.Service.ImgwService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,13 @@ public class RiverRestController {
     }
 
     @GetMapping("/status")
-    public List<Station> getStatus() {
+    public List<WaterMeasureApi> getStatus() {
         return imgwService.getStationInfo();
+    }
+
+    @GetMapping("/test")
+    public List<WaterMeasure> sync() {
+        return imgwService.synchronizeApiFromIMGW();
     }
 
 
