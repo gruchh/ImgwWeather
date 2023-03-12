@@ -32,7 +32,7 @@ public class SecurityConfig {
         this.jwtTokenFilter = jwtTokenFilter;
     }
 
-    //REFACTOR
+    // Add 2 users at start
     @EventListener(ApplicationReadyEvent.class)
     public void prepareSampleUsers() {
 
