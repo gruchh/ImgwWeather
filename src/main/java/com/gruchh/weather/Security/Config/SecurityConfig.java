@@ -24,6 +24,7 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @Configuration
 public class SecurityConfig {
 
+    private static final String API_SUFIX = "/api/v1/";
     private UserDBRepository userRepository;
     private JwtTokenFilter jwtTokenFilter;
 
@@ -45,10 +46,12 @@ public class SecurityConfig {
     }
 
     private static final AntPathRequestMatcher[] WHITE_LIST_URLS = {
+
+            new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/auth/login"),
             new AntPathRequestMatcher("/getSampleWaterMeasures"),
-            new AntPathRequestMatcher("/h2-console/**"),
-            new AntPathRequestMatcher("/rivers/test")
+            new AntPathRequestMatcher(API_SUFIX + "/rivers/test"),
+            new AntPathRequestMatcher(API_SUFIX + "/rivers/status")
     };
 
     @Bean
