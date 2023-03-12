@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
@@ -44,6 +44,13 @@ public class SecurityConfig {
         System.out.println("User2 " + user2);
     }
 
+    private static final AntPathRequestMatcher[] WHITE_LIST_URLS = {
+            new AntPathRequestMatcher("/auth/login"),
+            new AntPathRequestMatcher("/getSampleWaterMeasures"),
+            new AntPathRequestMatcher("/h2-console/**"),
+            new AntPathRequestMatcher("/rivers/test")
+    };
+
     @Bean
     public PasswordEncoder getBcryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -53,25 +60,19 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         http.csrf().disable();
+        http.headers().frameOptions().disable();
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-        MvcRequestMatcher h2RequestMatcher = new MvcRequestMatcher(introspector, "/**");
-        h2RequestMatcher.setServletPath("/h2-console");
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
-                .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(h2RequestMatcher).permitAll()
-                        .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/getSampleWaterMeasures").permitAll()
-                        .requestMatchers("/rivers/test").permitAll()
-                        .requestMatchers("/hello").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+            .authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers(WHITE_LIST_URLS).permitAll()
+                .requestMatchers("/hello").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
