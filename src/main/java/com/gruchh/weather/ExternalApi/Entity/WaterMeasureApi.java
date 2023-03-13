@@ -15,7 +15,7 @@ import java.util.HashMap;
         "id_stacji",
         "stacja",
         "rzeka",
-        "wojew\u00f3dztwo",
+        "wojewodztwo",
         "stan_wody",
         "stan_wody_data_pomiaru",
         "temperatura_wody",
@@ -29,7 +29,7 @@ import java.util.HashMap;
 @Generated("jsonschema2pojo")
 @Getter
 @Setter
-public class Station {
+public class WaterMeasureApi {
 
     @JsonProperty("id_stacji")
     private String idStacji;
@@ -47,7 +47,7 @@ public class Station {
     private String stanWody;
 
     @JsonProperty("stan_wody_data_pomiaru")
-    private Object stanWodyDataPomiaru;
+    private String stanWodyDataPomiaru;
 
     @JsonProperty("temperatura_wody")
     private Object temperaturaWody;
@@ -55,8 +55,19 @@ public class Station {
     @JsonProperty("temperatura_wody_data_pomiaru")
     private Object temperaturaWodyDataPomiaru;
 
+    @JsonProperty("zjawisko_lodowe")
+    private String zjawiskoLodowe;
+
+    @JsonProperty("zjawisko_lodowe_data_pomiaru")
+    private String zjawiskoLodoweDataPomiaru;
+
+    @JsonProperty("zjawisko_zarastania")
+    private String zjawiskoZarastania;
+
+    @JsonProperty("zjawisko_zarastania_data_pomiaru")
+    private String zjawiskoZarastaniaDataPomiaru;
+
     @JsonIgnore
     private HashMap<String, Object> additionalProperties = new HashMap<String, Object>();
-
 
 }

@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.stream.Collectors;
 
 @RestController
-public class UserApi {
+public class LoginController {
 
     AuthenticationManager authenticationManager;
 
-    public UserApi(AuthenticationManager authenticationManager) {
+    public LoginController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 

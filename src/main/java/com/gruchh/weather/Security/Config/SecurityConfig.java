@@ -17,12 +17,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 public class SecurityConfig {
 
+    private static final String API_SUFIX = "/api/v1/";
     private UserDBRepository userRepository;
     private JwtTokenFilter jwtTokenFilter;
 
@@ -31,18 +33,25 @@ public class SecurityConfig {
         this.jwtTokenFilter = jwtTokenFilter;
     }
 
-    //REFACTOR
+    // Add 2 users at start
     @EventListener(ApplicationReadyEvent.class)
-    public String a() {
+    public void prepareSampleUsers() {
 
-        UserDB user = new UserDB("a@a.pl", getBcryptPasswordEncoder().encode("admin123"), "user");
+        UserDB user = new UserDB("a@a.pl", getBcryptPasswordEncoder().encode("admin123"), "ROLE_USER");
         userRepository.save(user);
-        UserDB user2 = new UserDB("b@b.pl", getBcryptPasswordEncoder().encode("bbbxax"), "admin");
+        UserDB user2 = new UserDB("b@b.pl", getBcryptPasswordEncoder().encode("bbbxax"), "ROLE_ADMIN");
         userRepository.save(user2);
         System.out.println("User " + user);
         System.out.println("User2 " + user2);
-        return "a";
     }
+
+    private static final AntPathRequestMatcher[] WHITE_LIST_URLS = {
+
+            new AntPathRequestMatcher("/h2-console/**"),
+            new AntPathRequestMatcher("/auth/login"),
+            new AntPathRequestMatcher("/getSampleWaterMeasures"),
+            new AntPathRequestMatcher(API_SUFIX + "/rivers/**"),
+    };
 
     @Bean
     public PasswordEncoder getBcryptPasswordEncoder() {
@@ -53,23 +62,19 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         http.csrf().disable();
-        MvcRequestMatcher h2RequestMatcher = new MvcRequestMatcher(introspector, "/**");
-        h2RequestMatcher.setServletPath("/h2-console");
-
+        http.headers().frameOptions().disable();
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
-                .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers(h2RequestMatcher).permitAll()
-                        .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/hello").permitAll()
-                        .anyRequest().authenticated()
+            .authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers(WHITE_LIST_URLS).permitAll()
+                .requestMatchers("/hello").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
