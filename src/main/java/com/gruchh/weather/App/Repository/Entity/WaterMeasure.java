@@ -1,17 +1,13 @@
 package com.gruchh.weather.App.Repository.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "WATER_MEASURE")
@@ -21,26 +17,27 @@ public class WaterMeasure {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NonNull
     @Column(name = "MEASUREMENT_CONTRACTOR")
     private String measureContractor;
 
-    @NotNull
+    @NonNull
     @Column(name = "RIVER_STATE_MEASURE")
     private Double riverStateMeasure;
 
-    @NotNull
+    @NonNull
     @Column(name = "RIVER_ICE_PHENOMENON")
     private Double icePhenomenon;
 
-    @NotNull
+    @NonNull
     @Column(name = "RIVER_OVERGROWTH_PHENOMENON")
     private Double overGrowthPhenomenon;
 
-    @NotNull
+    @NonNull
     @Column(name = "REGISTRATION_DATE")
     private LocalDate registrationDate;
 
+    @NonNull
     @Column(name = "IMGW_STATION_ID")
     private Long idImgwSite;
 

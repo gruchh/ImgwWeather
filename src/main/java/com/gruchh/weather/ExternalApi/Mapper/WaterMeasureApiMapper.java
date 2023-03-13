@@ -2,18 +2,15 @@ package com.gruchh.weather.ExternalApi.Mapper;
 
 import com.gruchh.weather.App.Repository.Entity.WaterMeasure;
 import com.gruchh.weather.ExternalApi.Entity.WaterMeasureApi;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Component
 public class WaterMeasureApiMapper {
-    static ModelMapper modelMapper = new ModelMapper();
 
-    public static WaterMeasure convertApiDataToDb(WaterMeasureApi waterMeasureApi) {
+    public static WaterMeasure mapApiDataToDb(WaterMeasureApi waterMeasureApi) {
 
         WaterMeasure waterMeasure = new WaterMeasure();
         waterMeasure.setMeasureContractor("system");

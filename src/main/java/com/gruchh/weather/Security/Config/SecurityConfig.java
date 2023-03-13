@@ -50,8 +50,7 @@ public class SecurityConfig {
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/auth/login"),
             new AntPathRequestMatcher("/getSampleWaterMeasures"),
-            new AntPathRequestMatcher(API_SUFIX + "/rivers/test"),
-            new AntPathRequestMatcher(API_SUFIX + "/rivers/status")
+            new AntPathRequestMatcher(API_SUFIX + "/rivers/**"),
     };
 
     @Bean

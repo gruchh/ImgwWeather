@@ -1,36 +1,31 @@
 package com.gruchh.weather.App.Repository.Entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @Table(name = "METROLOGICAL_STATION")
 public class MetrologicalStation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @NotNull
-    @Column(name = "STATION_NAME", nullable = false)
+    @Column(name = "STATION_NAME")
     private String stationName;
 
-    @NotNull
-    @Column(name = "RIVER_NAME", nullable = false)
+    @Column(name = "RIVER_NAME")
     private String riverName;
 
-    @NotNull
-    @Column(name= "STATION_VOIVODESHIP", nullable = false)
+    @Column(name= "STATION_VOIVODESHIP")
     private String voivodeship;
 
-    @NotNull
-    @Column(name = "IMGW_STATION_ID")
-    private Long idImgwSite;
-
+    @Column(name = "IMGW_ID_FK")
+    private Long idImgwFk;
 
 }

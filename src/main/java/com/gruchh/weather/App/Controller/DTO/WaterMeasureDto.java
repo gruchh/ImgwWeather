@@ -14,7 +14,6 @@ public class WaterMeasureDto {
     private Long id;
     private String stationName;
     private String riverName;
-    private String voivodeship;
     private Double riverStateMeasure;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, fallbackPatterns = {"dd.MM.yyyy"})
     private LocalDate registrationDate;

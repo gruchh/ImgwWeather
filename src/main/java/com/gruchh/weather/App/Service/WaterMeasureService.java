@@ -27,12 +27,16 @@ public class WaterMeasureService {
         waterMeasureRepository.saveAll(Arrays.asList(measure1, measure2));
     }
 
-    public void saveNewMeasure(WaterMeasure waterMeasure) {
+    public void addNewMeasure (WaterMeasure waterMeasure) {
         waterMeasureRepository.save(waterMeasure);
     }
 
     public List<WaterMeasure> getAllWaterMeasures() {
         return waterMeasureRepository.findAll();
+    }
+
+    public void saveWaterMeasureList(List<WaterMeasure> waterMeasureList) {
+        waterMeasureRepository.saveAll(waterMeasureList);
     }
 
 

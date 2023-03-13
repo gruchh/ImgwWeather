@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ImgwService {
+public class ImgwExtenalApiService {
 
     private static final String restUrl = "https://danepubliczne.imgw.pl/api/data/hydro/";
 
@@ -27,11 +27,9 @@ public class ImgwService {
     public List<WaterMeasure> synchronizeApiFromIMGW() {
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<WaterMeasureApi> stationHttpEntity = new HttpEntity<>(new WaterMeasureApi());
-
         ResponseEntity<WaterMeasureApi[]> stationExchange = restTemplate.exchange(restUrl, HttpMethod.GET, stationHttpEntity, WaterMeasureApi[].class);
 
-        List<WaterMeasure> collect = Arrays.stream(stationExchange.getBody()).map(n -> WaterMeasureApiMapper.convertApiDataToDb(n)).collect(Collectors.toList());
-        return collect;
+        return Arrays.stream(stationExchange.getBody()).map(measure -> WaterMeasureApiMapper.mapApiDataToDb(measure)).collect(Collectors.toList());
     }
 
 
