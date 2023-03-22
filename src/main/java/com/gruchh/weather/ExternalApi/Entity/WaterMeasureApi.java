@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,10 +51,10 @@ public class WaterMeasureApi {
     private String stanWodyDataPomiaru;
 
     @JsonProperty("temperatura_wody")
-    private Object temperaturaWody;
+    private String temperaturaWody;
 
     @JsonProperty("temperatura_wody_data_pomiaru")
-    private Object temperaturaWodyDataPomiaru;
+    private String temperaturaWodyDataPomiaru;
 
     @JsonProperty("zjawisko_lodowe")
     private String zjawiskoLodowe;

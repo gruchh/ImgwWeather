@@ -29,7 +29,7 @@ public class ImgwExtenalApiService {
         HttpEntity<WaterMeasureApi> stationHttpEntity = new HttpEntity<>(new WaterMeasureApi());
         ResponseEntity<WaterMeasureApi[]> stationExchange = restTemplate.exchange(restUrl, HttpMethod.GET, stationHttpEntity, WaterMeasureApi[].class);
 
-        return Arrays.stream(stationExchange.getBody()).map(measure -> WaterMeasureApiMapper.mapApiDataToDb(measure)).collect(Collectors.toList());
+        return Arrays.stream(stationExchange.getBody()).map(measure -> WaterMeasureApiMapper.mapWaterMeasureApiToWaterMeasure(measure)).collect(Collectors.toList());
     }
 
 
