@@ -20,13 +20,6 @@ public class WaterMeasureService {
 
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void prepareSampleMeasures() {
-        WaterMeasure measure1 = new WaterMeasure(1L, "Pomiarowiec", 2.0, 3.0, 3.2, LocalDate.now(), 21L);
-        WaterMeasure measure2 = new WaterMeasure(2L, "System", 2.330, 987.1, 3.11, LocalDate.now(), 3421L);
-        waterMeasureRepository.saveAll(Arrays.asList(measure1, measure2));
-    }
-
     public void addNewMeasure (WaterMeasure waterMeasure) {
         waterMeasureRepository.save(waterMeasure);
     }

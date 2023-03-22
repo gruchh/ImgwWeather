@@ -2,14 +2,14 @@ package com.gruchh.weather.App.Repository.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Entity
-@Data
-@NoArgsConstructor
+
+@Getter
+@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @Table(name = "WATER_MEASURE")
 public class WaterMeasure {
 
@@ -18,8 +18,8 @@ public class WaterMeasure {
     private Long id;
 
     @NonNull
-    @Column(name = "MEASUREMENT_CONTRACTOR")
-    private String measureContractor;
+    @Column(name = "RIVER_NAME")
+    private String riverName;
 
     @NonNull
     @Column(name = "RIVER_STATE_MEASURE")

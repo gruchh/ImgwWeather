@@ -1,14 +1,15 @@
 package com.gruchh.weather.App.Repository.Entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-
-@Entity
-@Data
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "METROLOGICAL_STATION")
 public class MetrologicalStation {
 

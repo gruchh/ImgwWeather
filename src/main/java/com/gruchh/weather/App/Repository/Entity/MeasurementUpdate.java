@@ -2,15 +2,13 @@ package com.gruchh.weather.App.Repository.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Entity
-@Data
-@Table(name = "MEASUREMENT_DB_UPDATES")
-@NoArgsConstructor
+@Getter
 @RequiredArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "MEASUREMENT_DB_UPDATES")
 public class MeasurementUpdate {
 
     @Id

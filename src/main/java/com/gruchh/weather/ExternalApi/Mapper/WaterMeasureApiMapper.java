@@ -2,49 +2,28 @@ package com.gruchh.weather.ExternalApi.Mapper;
 
 import com.gruchh.weather.App.Repository.Entity.WaterMeasure;
 import com.gruchh.weather.ExternalApi.Entity.WaterMeasureApi;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
+import static com.gruchh.weather.ExternalApi.Utils.ConversionUtils.convertStringToDouble;
+import static com.gruchh.weather.ExternalApi.Utils.ConversionUtils.convertStringToLong;
+
 @Component
 public class WaterMeasureApiMapper {
 
-    public static WaterMeasure mapApiDataToDb(WaterMeasureApi waterMeasureApi) {
+    public static WaterMeasure mapWaterMeasureApiToWaterMeasure(WaterMeasureApi waterMeasureApi) {
 
-        WaterMeasure waterMeasure = new WaterMeasure();
-        waterMeasure.setMeasureContractor("system");
-        waterMeasure.setRiverStateMeasure(convertStringToDouble(waterMeasureApi.getStanWody()));
-        waterMeasure.setIcePhenomenon(convertStringToDouble(waterMeasureApi.getZjawiskoZarastania()));
-        waterMeasure.setOverGrowthPhenomenon(convertStringToDouble(waterMeasureApi.getZjawiskoZarastania()));
-        waterMeasure.setRegistrationDate(LocalDate.now());
-        waterMeasure.setIdImgwSite(convertStringToLong(waterMeasureApi.getIdStacji()));
-
-        return waterMeasure;
+        return new WaterMeasure(
+                waterMeasureApi.getRzeka(),
+                convertStringToDouble(waterMeasureApi.getStanWody()),
+                convertStringToDouble(waterMeasureApi.getZjawiskoLodowe()),
+                convertStringToDouble(waterMeasureApi.getZjawiskoZarastania()),
+                LocalDate.now(),
+                convertStringToLong(waterMeasureApi.getIdStacji())
+        );
     }
 
-    private static Double convertStringToDouble (String string) {
-        if (string == null) {
-            return 0.0;
-        } else {
-            try {
-                return Double.parseDouble(string);
-            } catch (Exception ex) {
-                return 0.0;
-            }
-        }
-    }
 
-    private static Long convertStringToLong (String string) {
-        if (string == null) {
-            return Long.parseLong("0", 10) ;
-        } else {
-            try {
-                return Long.parseLong(string, 10) ;
-            } catch (Exception ex) {
-                return Long.parseLong("0", 10) ;
-            }
-        }
-    }
 
 }
