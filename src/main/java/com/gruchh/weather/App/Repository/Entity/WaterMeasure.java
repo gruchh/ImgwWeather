@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "WATER_MEASURE")
 public class WaterMeasure {
@@ -16,10 +15,6 @@ public class WaterMeasure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NonNull
-    @Column(name = "RIVER_NAME")
-    private String riverName;
 
     @NonNull
     @Column(name = "RIVER_STATE_MEASURE")
@@ -39,6 +34,6 @@ public class WaterMeasure {
 
     @NonNull
     @Column(name = "IMGW_STATION_ID")
-    private Long idImgwSite;
+    private String idImgwSite;
 
 }

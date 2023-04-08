@@ -13,12 +13,22 @@ public class WaterMeasureMapper {
     public WaterMeasureDto mapToWaterMeasureDto(WaterMeasure waterMeasure) {
         return new WaterMeasureDto(
                 waterMeasure.getId(),
-                waterMeasure.getRiverName(),
                 waterMeasure.getRiverStateMeasure(),
                 waterMeasure.getRegistrationDate(),
                 waterMeasure.getIcePhenomenon(),
                 waterMeasure.getOverGrowthPhenomenon(),
                 waterMeasure.getIdImgwSite()
+        );
+    }
+
+    public WaterMeasure mapToWaterMeasure(WaterMeasureDto waterMeasureDto) {
+        return new WaterMeasure(
+                waterMeasureDto.getId(),
+                waterMeasureDto.getRiverStateMeasure(),
+                waterMeasureDto.getIcePhenomenon(),
+                waterMeasureDto.getOverGrowthPhenomenon(),
+                waterMeasureDto.getRegistrationDate(),
+                waterMeasureDto.getIdImgwSite()
         );
     }
 
