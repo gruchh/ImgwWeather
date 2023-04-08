@@ -15,12 +15,11 @@ public class WaterMeasureApiMapper {
     public static WaterMeasure mapWaterMeasureApiToWaterMeasure(WaterMeasureApi waterMeasureApi) {
 
         return new WaterMeasure(
-                waterMeasureApi.getRzeka(),
                 convertStringToDouble(waterMeasureApi.getStanWody()),
                 convertStringToDouble(waterMeasureApi.getZjawiskoLodowe()),
                 convertStringToDouble(waterMeasureApi.getZjawiskoZarastania()),
                 LocalDate.now(),
-                convertStringToLong(waterMeasureApi.getIdStacji())
+                waterMeasureApi.getIdStacji()
         );
     }
 

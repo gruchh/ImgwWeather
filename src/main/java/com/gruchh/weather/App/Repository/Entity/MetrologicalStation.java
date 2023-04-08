@@ -27,6 +27,6 @@ public class MetrologicalStation {
     private String voivodeship;
 
     @Column(name = "IMGW_ID_FK")
-    private Long idImgwFk;
+    private String idImgwFk;
 
 }
