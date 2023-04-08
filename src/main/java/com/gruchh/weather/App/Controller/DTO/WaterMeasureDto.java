@@ -14,11 +14,10 @@ import java.time.LocalDate;
 public class WaterMeasureDto {
 
     private Long id;
-    private String riverName;
     private Double riverStateMeasure;
     private LocalDate registrationDate;
     private Double icePhenomenon;
     private Double overGrowthPhenomenon;
-    private Long idImgwSite;
+    private String idImgwSite;
 
 }
