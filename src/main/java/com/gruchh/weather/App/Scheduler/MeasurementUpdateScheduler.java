@@ -1,7 +1,7 @@
 package com.gruchh.weather.App.Scheduler;
 
 import com.gruchh.weather.App.Service.MeasureUpdateService;
-import com.gruchh.weather.App.Service.WaterMeasureService;
+import com.gruchh.weather.App.Service.WaterMeasureServiceImpl;
 import com.gruchh.weather.ExternalApi.Service.ImgwExtenalApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MeasurementUpdateScheduler {
 
-    private final WaterMeasureService waterMeasureService;
+    private final WaterMeasureServiceImpl waterMeasureService;
     private final MeasureUpdateService measureUpdateService;
     private final ImgwExtenalApiService imgwExtenalApiService;
 

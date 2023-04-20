@@ -4,13 +4,10 @@ import com.gruchh.weather.App.Controller.DTO.WaterMeasureDto;
 import com.gruchh.weather.App.Repository.Entity.WaterMeasure;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class WaterMeasureMapper {
 
-    public WaterMeasureDto mapToWaterMeasureDto(WaterMeasure waterMeasure) {
+    public static WaterMeasureDto mapToWaterMeasureDto(WaterMeasure waterMeasure) {
         return new WaterMeasureDto(
                 waterMeasure.getId(),
                 waterMeasure.getRiverStateMeasure(),
@@ -21,7 +18,7 @@ public class WaterMeasureMapper {
         );
     }
 
-    public WaterMeasure mapToWaterMeasure(WaterMeasureDto waterMeasureDto) {
+    public static WaterMeasure mapToWaterMeasure(WaterMeasureDto waterMeasureDto) {
         return new WaterMeasure(
                 waterMeasureDto.getId(),
                 waterMeasureDto.getRiverStateMeasure(),
@@ -30,12 +27,6 @@ public class WaterMeasureMapper {
                 waterMeasureDto.getRegistrationDate(),
                 waterMeasureDto.getIdImgwSite()
         );
-    }
-
-    public List<WaterMeasureDto> mapToWaterMeasureDtoList(final List<WaterMeasure> waterMeasureList) {
-        return waterMeasureList.stream()
-                .map(this::mapToWaterMeasureDto)
-                .collect(Collectors.toList());
     }
 
 }

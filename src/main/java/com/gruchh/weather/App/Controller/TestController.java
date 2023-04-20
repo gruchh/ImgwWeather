@@ -1,7 +1,7 @@
 package com.gruchh.weather.App.Controller;
 
 import com.gruchh.weather.App.Repository.Entity.WaterMeasure;
-import com.gruchh.weather.App.Service.WaterMeasureService;
+import com.gruchh.weather.App.Service.WaterMeasureServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,9 +10,9 @@ import java.util.List;
 @RestController
 public class TestController {
 
-    private final WaterMeasureService waterMeasureService;
+    private final WaterMeasureServiceImpl waterMeasureService;
 
-    public TestController(WaterMeasureService waterMeasureService) {
+    public TestController(WaterMeasureServiceImpl waterMeasureService) {
         this.waterMeasureService = waterMeasureService;
     }
 
